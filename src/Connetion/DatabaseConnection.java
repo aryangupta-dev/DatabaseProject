@@ -21,7 +21,7 @@ public class DatabaseConnection {
     public static final String PASSWORD="";
     public static Connection connection=null;
 
-    public DatabaseConnection(){
+        public void connectToDatabase( ){
         try {
             connection= DriverManager.getConnection(
                     URL,
@@ -32,11 +32,11 @@ public class DatabaseConnection {
             System.out.println("Cannot connect to the database ,"+"Please check your credentials");
         }finally {
             printStatus();
-        }
-    }
+        }}
+
 
     private void printStatus() {
-        System.out.println("Database is working correctly.");
+        System.out.println(connection==null ?"Database is inactive ":"Database is active.");
     }
 
 }
