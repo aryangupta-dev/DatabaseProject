@@ -29,7 +29,7 @@ public class DatabaseConnection {
                     PASSWORD
             );
         } catch (SQLException throwables) {
-            System.out.println("Cannot connect to the database ,"+"Please check your credentials");
+            System.out.println("Cannot connect to the database ,"+"Please check your credentials of database");
         }finally {
             printStatus();
         }}
@@ -39,4 +39,7 @@ public class DatabaseConnection {
         System.out.println(connection==null ?"Database is inactive ":"Database is active.");
     }
 
+    public static Connection getConnection() {
+        return connection;
+    }
 }
