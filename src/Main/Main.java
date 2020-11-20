@@ -19,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         DatabaseConnection obj=new DatabaseConnection();
         obj.connectToDatabase();
+        if(DatabaseConnection.connection!=null){
         Scanner sc=new Scanner(System.in);
         System.out.println("Enter the city name.");
         String name=sc.nextLine();
@@ -34,5 +35,5 @@ public class Main {
         }
 
 
-    }
+    }}
 }
