@@ -30,6 +30,13 @@ public class DatabaseConnection {
             );
         } catch (SQLException throwables) {
             System.out.println("Cannot connect to the database ,"+"Please check your credentials");
+        }finally {
+            printStatus();
         }
     }
+
+    private void printStatus() {
+        System.out.println("Database is working correctly.");
+    }
+
 }
