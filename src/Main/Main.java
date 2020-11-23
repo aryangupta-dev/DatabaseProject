@@ -20,19 +20,11 @@ public class Main {
         DatabaseConnection obj=new DatabaseConnection();
         obj.connectToDatabase();
         if(DatabaseConnection.connection!=null){
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter the city name.");
-        String name=sc.nextLine();
-        System.out.println("Have you visited there.(True/False)");
-        boolean traversal=sc.nextBoolean();
-        int kilometres=(int)(Math.random()*500+50);
-        City inserted=new City(name,traversal,kilometres);
-        CityHelper rowInsertion=new CityHelper();
-        try {
-            rowInsertion.addCityToDatabase(DatabaseConnection.getConnection(),inserted);
-        } catch (SQLException throwables) {
-            System.err.println(inserted.getName()+"cannot be inserted to the database.");
-        }
+            System.out.println("Happy to see U here in database manipulation species.");
+            System.out.println("Enter 1 to add city name in the database");
+            System.out.println("Enter 2 to read values from the database.");
+            System.out.println("Enter 3 to update values in database.");
+            System.out.println("Enter 4 to delete the values from the database.");
 
 
     }}
