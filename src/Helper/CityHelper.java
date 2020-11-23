@@ -11,8 +11,8 @@ import Data.City;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CityHelper {
     //inserted query
@@ -25,24 +25,58 @@ public class CityHelper {
         int kilometres=city.getKilometres();
         PreparedStatement insertStatement=(
                 connection.prepareStatement(QUERY)
-                );
-        insertStatement.setString(1,name);
-        insertStatement.setBoolean(2,traversal);
-        insertStatement.setInt(3,kilometres);
+        );
+        insertStatement.setString(1, name);
+        insertStatement.setBoolean(2, traversal);
+        insertStatement.setInt(3, kilometres);
         insertStatement.executeUpdate();
         return true;
 
     }
+
     //Read
-    public List<City> readAllCitiesFromTheDatabase(){
-        return null;
-    }
+    public static final String Read_Query = "Select * from cities;";
     //Update
-    public boolean updateCity(){
-        return false;
-    }
+    public static final String UPDATE_QUERY = "Update cities set kilometres=? where name=?";
     //Delete
-    public boolean deleteCity(){
-        return false;
+    public static final String DELETE_QUERY = "delete from cities where name=?;";
+
+    public void readAllCitiesFromTheDatabase(Connection connection) {
+        try {
+            PreparedStatement readStatement = connection.prepareStatement(Read_Query);
+            ResultSet str = readStatement.executeQuery();
+            while (str.next()) {
+                String name = str.getString(1);
+                boolean isTraversal = str.getBoolean(2);
+                int kilometres = str.getInt(3);
+                City city = new City(name, isTraversal, kilometres);
+                System.out.println(city);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void updateCity(Connection connection, String name, int kilometres) {
+        try {
+            PreparedStatement updateStatement = connection.prepareStatement(UPDATE_QUERY);
+
+            updateStatement.setInt(1, kilometres);
+            updateStatement.setString(2, name);
+            updateStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            System.err.println(name + " is not there in the table.");
+        }
+    }
+
+    public void deleteCity(Connection connection, String name) {
+        try {
+            PreparedStatement deleteStstement = connection.prepareStatement(DELETE_QUERY);
+            deleteStstement.setNString(1, name);
+            deleteStstement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

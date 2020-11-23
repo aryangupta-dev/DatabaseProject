@@ -21,18 +21,20 @@ public class DatabaseConnection {
     public static final String PASSWORD="";
     public static Connection connection=null;
 
-        public void connectToDatabase( ){
-        try {
-            connection= DriverManager.getConnection(
-                    URL,
-                    USERNAME,
-                    PASSWORD
-            );
-        } catch (SQLException throwables) {
-            System.out.println("Cannot connect to the database ,"+"Please check your credentials of database");
-        }finally {
-            printStatus();
-        }}
+        public Connection connectToDatabase() {
+            try {
+                connection = DriverManager.getConnection(
+                        URL,
+                        USERNAME,
+                        PASSWORD
+                );
+            } catch (SQLException throwables) {
+                System.out.println("Cannot connect to the database ," + "Please check your credentials of database");
+            } finally {
+                printStatus();
+            }
+            return null;
+        }
 
 
     private void printStatus() {

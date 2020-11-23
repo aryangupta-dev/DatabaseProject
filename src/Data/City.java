@@ -45,11 +45,8 @@ import java.util.Objects;
 
         @Override
         public String toString() {
-            return "City{" +
-                    "name='" + name + '\'' +
-                    ", traversed=" + traversed +
-                    ", kilometres=" + kilometres +
-                    '}';
+            return
+                    (isTraversed() ? "I have visited " : "I haven't visited ") + getName() + " it is " + getKilometres() + "km away";
         }
 
         @Override
