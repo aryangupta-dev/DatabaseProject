@@ -9,6 +9,7 @@ package Helper;
 
 import Data.City;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +65,7 @@ public class CityHelper {
             updateStatement.setInt(1, kilometres);
             updateStatement.setString(2, name);
             updateStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "kilometre updated", null, JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException throwables) {
             System.err.println(name + " is not there in the table.");
         }
@@ -74,6 +76,7 @@ public class CityHelper {
             PreparedStatement deleteStstement = connection.prepareStatement(DELETE_QUERY);
             deleteStstement.setNString(1, name);
             deleteStstement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "City deleted", null, JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

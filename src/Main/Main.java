@@ -38,6 +38,7 @@ public class Main {
                 int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter your choice for manipulation in DB.", "Choice", JOptionPane.PLAIN_MESSAGE));
                 switch (choice) {
                     case ADD_CITY:
+                        int kilometres = 0;
                         String cityName = JOptionPane.showInputDialog(null, "Enter city you want to add.", "add data", JOptionPane.PLAIN_MESSAGE);
                         boolean isTraversed = Boolean.parseBoolean(JOptionPane.showInputDialog(
                                 null,
@@ -45,12 +46,21 @@ public class Main {
                                 "isTraversed",
                                 JOptionPane.PLAIN_MESSAGE
                         ));
-                        int kilometres = Integer.parseInt(JOptionPane.showInputDialog(
-                                null,
-                                "Distance from the current location.",
-                                "Distance",
-                                JOptionPane.PLAIN_MESSAGE
-                        ));
+                        try {
+                            kilometres = Integer.parseInt(JOptionPane.showInputDialog(
+                                    null,
+                                    "Distance from the current location.",
+                                    "Distance",
+                                    JOptionPane.PLAIN_MESSAGE
+                            ));
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Cant added km not a no.",
+                                    "Invalid.",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                        }
                         City city = new City(cityName, isTraversed, kilometres);
                         try {
                             manipulated.addCityToDatabase(DatabaseConnection.getConnection(), city);
@@ -70,13 +80,23 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Details shown to you", "Done", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case UPDATE_KILOMETRE:
+                        int updateKilometre = 0;
                         String cityKilometreUpdation = JOptionPane.showInputDialog(null, "Enter City for kilometre updation.",
                                 "City", JOptionPane.DEFAULT_OPTION);
 
-                        int updateKilometre = Integer.parseInt(JOptionPane.showInputDialog(null,
-                                "Enter the kilometre for updation.", "Kilometre", JOptionPane.DEFAULT_OPTION));
-                        manipulated.updateCity(DatabaseConnection.getConnection(), cityKilometreUpdation, updateKilometre);
-                        JOptionPane.showMessageDialog(null, "kilometre updated", null, JOptionPane.DEFAULT_OPTION);
+                        try {
+                            updateKilometre = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                    "Enter the kilometre for updation.", "Kilometre", JOptionPane.DEFAULT_OPTION));
+                            manipulated.updateCity(DatabaseConnection.getConnection(), cityKilometreUpdation, updateKilometre);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "Cant added km not a no.",
+                                    "Invalid.",
+                                    JOptionPane.ERROR_MESSAGE
+                            );
+                        }
+
                         break;
                     case DELETE_CITY:
                         String cityNam = JOptionPane.showInputDialog(
@@ -92,20 +112,6 @@ public class Main {
                     default:
                         exitLoop = false;
                 }
-
-/**Scanner sc=new Scanner(System.in);
- System.out.println("Enter the city name.");
- String name=sc.nextLine();
- System.out.println("Have you visited there.(True/False)");
- boolean traversal=sc.nextBoolean();
- int kilometres=(int)(Math.random()*500+50);
- City inserted=new City(name,traversal,kilometres);
- CityHelper rowInsertion=new CityHelper();
- try {
- rowInsertion.addCityToDatabase(DatabaseConnection.getConnection(),inserted);
- } catch (SQLException throwables) {
- System.err.println(inserted.getName()+"cannot be inserted to the database.");
- }*/
 
             }
         }
