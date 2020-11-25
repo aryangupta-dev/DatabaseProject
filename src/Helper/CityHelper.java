@@ -10,6 +10,7 @@ package Helper;
 import Data.City;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,15 +47,29 @@ public class CityHelper {
         try {
             PreparedStatement readStatement = connection.prepareStatement(Read_Query);
             ResultSet str = readStatement.executeQuery();
+            StringBuilder builder = new StringBuilder();
             while (str.next()) {
                 String name = str.getString(1);
                 boolean isTraversal = str.getBoolean(2);
                 int kilometres = str.getInt(3);
                 City city = new City(name, isTraversal, kilometres);
-                System.out.println(city);
+                builder.append(city.toString()).append("\n").append("-".repeat(120)).append("\n");
             }
+            JTextArea textArea = new JTextArea(builder.toString());
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            scrollPane.setPreferredSize(new Dimension(512, 250));
+            JOptionPane.showMessageDialog(
+                    null,
+                    scrollPane,
+                    "Cities In The Database",
+                    JOptionPane.PLAIN_MESSAGE
+            );
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Cant show the entries in the database", "Error", JOptionPane.PLAIN_MESSAGE
+            );
         }
     }
 
