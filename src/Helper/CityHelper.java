@@ -32,6 +32,7 @@ public class CityHelper {
         insertStatement.setBoolean(2, traversal);
         insertStatement.setInt(3, kilometres);
         insertStatement.executeUpdate();
+        JOptionPane.showMessageDialog(null, "City added to the database.", "Added", JOptionPane.DEFAULT_OPTION);
         return true;
 
     }

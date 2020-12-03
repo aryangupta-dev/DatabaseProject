@@ -35,7 +35,12 @@ public class Main {
             boolean exitLoop = true;
             CityHelper manipulated = new CityHelper();
             while (exitLoop) {
-                int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter your choice for manipulation in DB.", "Choice", JOptionPane.PLAIN_MESSAGE));
+                int choice = 0;
+                try {
+                    choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter your choice for manipulation in DB.", "Choice", JOptionPane.PLAIN_MESSAGE));
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Choice is to be in a number", "Wrong choice", JOptionPane.PLAIN_MESSAGE);
+                }
                 switch (choice) {
                     case ADD_CITY:
                         int kilometres = 0;
@@ -60,6 +65,7 @@ public class Main {
                                     "Invalid.",
                                     JOptionPane.ERROR_MESSAGE
                             );
+                            break;
                         }
                         City city = new City(cityName, isTraversed, kilometres);
                         try {
@@ -71,9 +77,8 @@ public class Main {
                                     "Invalid.",
                                     JOptionPane.ERROR_MESSAGE
                             );
-                        } finally {
-                            JOptionPane.showMessageDialog(null, "City added to the database.", "Added", JOptionPane.DEFAULT_OPTION);
                         }
+
                         break;
                     case READ_CITY:
                         manipulated.readAllCitiesFromTheDatabase(DatabaseConnection.getConnection());
